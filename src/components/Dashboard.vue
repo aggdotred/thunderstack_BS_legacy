@@ -3,37 +3,38 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          <h1 class="page-header">Blockstack Todo App
+          <h1 class="page-header">Thunderstack
             <img :src="user.avatarUrl() ? user.avatarUrl() : '/avatar-placeholder.png'" class="avatar">
             <small><span class="sign-out">(<a href="#" @click.prevent="signOut">Sign Out</a>)</span></small>
           </h1>
           <h2 class="user-info">
             <small>
-              {{ user.name() ? user.name() : 'Nameless Person'}}'s Todos
+              {{ user.name() ? user.name() : 'Nameless Person'}}'s Weight Logs
             </small>
             <small class="pull-right">
             {{ user.username ? user.username : user.identityAddress }}
             </small>
 
           </h2>
-          <form @submit.prevent="addTodo" :disabled="! todo">
+          <form @submit.prevent="addWeightLog" :disabled="! weightLog">
             <div class="input-group">
-              <input v-model="todo" type="text" class="form-control" placeholder="Write a todo..." autofocus>
+              <input v-model="weightLog" type="text" class="form-control" placeholder="Log your weight" autofocus>
+            <!-- <input v-model="weightLogDate" type="date" class="form-control" placeholder="Date"> -->
               <span class="input-group-btn">
-                <button class="btn btn-default" type="submit" :disabled="! todo">Add</button>
+                <button class="btn btn-default" type="submit" :disabled="! weightLog">Add</button>
               </span>
             </div>
           </form>
 
           <ul class="list-group">
-            <li v-for="todo in todos"
+            <li v-for="weightLog in weightLogs"
               class="list-group-item"
-              :class="{completed: todo.completed}"
-              :key="todo.id">
+              :class="{completed: weightLog.completed}"
+              :key="weightLog.id">
               <label>
-                <input type="checkbox" v-model="todo.completed">{{ todo.text }}
+                <input type="checkbox" v-model="weightLog.completed">{{ weightLog.text }}
               </label>
-              <a @click.prevent="todos.splice(todos.indexOf(todo), 1)"
+              <a @click.prevent="weightLogs.splice(weightLogs.indexOf(weightLog), 1)"
                 class="delete pull-right"
                 href="#">X</a>
             </li>
@@ -46,26 +47,28 @@
 </template>
 
 <script>
-var STORAGE_FILE = 'todos.json'
+
+var STORAGE_FILE = 'weightLogs.json'
 
 export default {
   name: 'dashboard',
+  components: {},
   props: ['user'],
   data () {
     return {
       blockstack: window.blockstack,
-      todos: [],
-      todo: '',
+      weightLogs: [],
+      weightLog: '',
       uidCount: 0
     }
   },
   watch: {
-    todos: {
-      handler: function (todos) {
+    weightLogs: {
+      handler: function (weightLogs) {
         const blockstack = this.blockstack
 
         // encryption is now enabled by default
-        return blockstack.putFile(STORAGE_FILE, JSON.stringify(todos))
+        return blockstack.putFile(STORAGE_FILE, JSON.stringify(weightLogs))
       },
       deep: true
     }
@@ -74,28 +77,28 @@ export default {
     this.fetchData()
   },
   methods: {
-    addTodo () {
-      if (!this.todo.trim()) {
+    addWeightLog () {
+      if (!this.weightLog.trim()) {
         return
       }
-      this.todos.unshift({
+      this.weightLogs.unshift({
         id: this.uidCount++,
-        text: this.todo.trim(),
+        text: this.weightLog.trim(),
         completed: false
       })
-      this.todo = ''
+      this.weightLog = ''
     },
 
     fetchData () {
       const blockstack = this.blockstack
       blockstack.getFile(STORAGE_FILE) // decryption is enabled by default
-      .then((todosText) => {
-        var todos = JSON.parse(todosText || '[]')
-        todos.forEach(function (todo, index) {
-          todo.id = index
+      .then((weightLogsText) => {
+        var weightLogs = JSON.parse(weightLogsText || '[]')
+        weightLogs.forEach(function (weightLog, index) {
+          weightLog.id = index
         })
-        this.uidCount = todos.length
-        this.todos = todos
+        this.uidCount = weightLogs.length
+        this.weightLogs = weightLogs
       })
     },
 

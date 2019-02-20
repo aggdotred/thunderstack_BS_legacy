@@ -4,7 +4,7 @@
     <dashboard v-if="user" :user="user"></dashboard>
 
     <small class="creds">
-      Source code on <a href="https://github.com/blockstack/blockstack-todos" target="_blank">Github</a>
+      A thunderpounds.id/@thunderpounds project
     </small>
   </div>
 </template>

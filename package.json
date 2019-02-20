@@ -1,8 +1,8 @@
 {
-  "name": "bs-todo",
-  "version": "5.0.2",
-  "description": "A decentralized Todo app built on Blockstack",
-  "author": "Michael Stivala <michaelstivala@me.com>",
+  "name": "Thunderstack",
+  "version": "0.1.0",
+  "description": "Mega Weight Loss Dashboard",
+  "author": "Adam Gutierrez",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -14,7 +14,7 @@
     "axios": "^0.16.1",
     "blockstack": "18.1.0",
     "bootstrap-sass": "^3.3.7",
-    "node-sass": "^4.9.2",
+    "node-sass": "^4.11.0",
     "sass-loader": "^6.0.5",
     "vue": "^2.3.3",
     "vue-router": "^2.3.1"
