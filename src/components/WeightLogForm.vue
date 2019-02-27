@@ -50,6 +50,9 @@ export default {
       deep: true
     }
   },
+  mounted () {
+    this.fetchData()
+  },
   methods: {
     addWeightLog () {
       if (!this.weightLog.trim()) {
