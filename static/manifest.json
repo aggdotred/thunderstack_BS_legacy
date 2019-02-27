@@ -1,10 +1,10 @@
 {
   "name": "Thunderstack App",
-  "start_url": "http://blockstack-todos.appartisan.com",
-  "description": "A simple todo app build on blockstack",
+  "start_url": "/",
+  "description": "Epic Weight Loss Dashboard",
   "icons": [
     {
-      "src": "http://blockstack-todos.appartisan.com/logo.png",
+      "src": "https://i.imgur.com/uOxckTc.png",
       "sizes": "400x400",
       "type": "image/png"
     },

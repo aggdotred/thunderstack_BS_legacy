@@ -2,7 +2,7 @@
   <div class="hello">
     <div>
       <h1>Thunderstack</h1>
-      <p>Mega Weight Loss Dashboard</p>
+      <p>Epic Weight Loss Dashboard</p>
       <button class="btn btn-default" @click.prevent="signIn">Sign In With Blockstack</button>
     </div>
   </div>
