@@ -29,10 +29,6 @@ export default {
       blockstack: window.blockstack
     }
   },
-
-  mounted () {
-    this.fetchData()
-  },
   methods: {
     signOut () {
       this.blockstack.signUserOut(window.location.href)

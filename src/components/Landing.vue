@@ -5,6 +5,9 @@
       <p>Epic Weight Loss Dashboard</p>
       <button class="btn btn-default" @click.prevent="signIn">Sign In With Blockstack</button>
     </div>
+     <small class="creds">
+      by <a href="https://www.twitter.com/thunderpounds">Thunderpounds</a>
+    </small>
   </div>
 </template>
 

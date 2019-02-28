@@ -3,10 +3,10 @@
     <form @submit.prevent="addWeightLog" :disabled="! weightLog">
       <div class="input-group">
         <div class="row">
-          <input v-model="weightLog" type="text" class="form-control" placeholder="Enter your weight in lbs." autofocus>
-          <input v-model="weightLogDate" type="date" class="form-control" placeholder="Weigh-in Date">
+          <input v-model="weightLogInLbs" type="text" class="form-control" placeholder="Enter your weight in lbs." autofocus>
+          <input v-model="weightLogDate" type="date" class="form-control" default="">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="submit" :disabled="! weightLog">Add</button>
+            <button class="btn btn-default" type="submit" :disabled="! weightLog || !weightLogDate">Add</button>
           </span>
         </div>
       </div>
@@ -15,7 +15,8 @@
     <ul class="list-group">
       <li v-for="weightLog in weightLogs" class="list-group-item" :key="weightLog.id">
         <label>
-          {{ weightLog.text }}
+          {{ weightLog.text }} lbs. ----
+          Date: {{ weightLog.date }}
         </label>
         <a @click.prevent="weightLogs.splice(weightLogs.indexOf(weightLog), 1)" class="delete pull-right" href="#">X</a>
       </li>
@@ -34,7 +35,8 @@ export default {
     return {
       blockstack: window.blockstack,
       weightLogs: [],
-      weightLog: '',
+      weightLog: {},
+      weightLogInLbs: '',
       weightLogDate: '',
       uidCount: 0
     }
@@ -55,23 +57,26 @@ export default {
   },
   methods: {
     addWeightLog () {
-      if (!this.weightLog.trim()) {
+      if (!this.weightLogInLbs.trim() || !this.weightLogDate.trim()) {
         return
       }
       this.weightLogs.unshift({
         id: this.uidCount++,
-        text: this.weightLog.trim(),
+        text: this.weightLogInLbs.trim(),
+        date: this.weightLogDate.trim(),
         completed: false
       })
-      this.weightLog = ''
+      this.weightLog = {}
+      this.weightLogInLbs = ''
+      this.weightLogDate = ''
     },
     fetchData () {
       const blockstack = this.blockstack
       blockstack
         .getFile(STORAGE_FILE) // decryption is enabled by default
         .then(weightLogsText => {
-          var weightLogs = JSON.parse(weightLogsText || '[]')
-          weightLogs.forEach(function (weightLog, index) {
+          var weightLogs = JSON.parse(weightLogsText || '{}')
+          weightLogs.forEach(function (weightLog, weightLogInLbs, weightLogDate, index) {
             weightLog.id = index
           })
           this.uidCount = weightLogs.length
