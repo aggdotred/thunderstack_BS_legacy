@@ -57,12 +57,15 @@ export default {
   },
   methods: {
     addWeightLog () {
-      if (!this.weightLogInLbs.trim() || !this.weightLogDate.trim()) {
+      const weightLogInLbsIsValid = typeof parseFloat(this.weightLogInLbs.trim()) === 'number'
+      const weightLogDateIsValid = !!this.weightLogInLbs.trim()
+      if (!weightLogInLbsIsValid || !weightLogDateIsValid) {
+        console.log('form input is invalid')
         return
       }
       this.weightLogs.unshift({
         id: this.uidCount++,
-        text: this.weightLogInLbs.trim(),
+        text: parseFloat(this.weightLogInLbs.trim()),
         date: this.weightLogDate.trim(),
         completed: false
       })
