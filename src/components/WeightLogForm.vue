@@ -11,7 +11,6 @@
         </div>
       </div>
     </form>
-
     <ul class="list-group">
       <li v-for="weightLog in weightLogs" class="list-group-item" :key="weightLog.id">
         <label>
@@ -41,6 +40,9 @@ export default {
       uidCount: 0
     }
   },
+  mounted () {
+    this.fetchData()
+  },
   watch: {
     weightLogs: {
       handler: function (weightLogs) {
@@ -51,9 +53,6 @@ export default {
       },
       deep: true
     }
-  },
-  mounted () {
-    this.fetchData()
   },
   methods: {
     addWeightLog () {

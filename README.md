@@ -1,9 +1,11 @@
 # Thunderstack
 
 ## ToDos
- - weight log form validation
- - break weightLogList component out of weightLogForm
+ - Complete implementation of weightlog list component w/o overwrite
+ - sort weight logs by date
+ - weight log form validation (clean up)
+ - leave field focus after submission
  - implement post login loading screen
  - get placeholder text for weight log submission field
- - sort weigh logs by date
+ 
  

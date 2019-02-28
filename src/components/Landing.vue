@@ -1,10 +1,11 @@
 <template>
   <div class="hello">
     <div>
-      <img src="logo.png" alt="Thunderstack logo" width="150" height="150">
+      <img src="logo.png" alt="Thunderstack logo" width="300" height="300">
       <h1>Thunderstack</h1>
-      <p>Epic Weight Loss Dashboard</p>
+      <h3>Your Epic Weight Loss Dashboard</h3>
       <button class="btn btn-default" @click.prevent="signIn">Sign In With Blockstack</button>
+      <p><em>Currently in development and not available on mobile devices</em></p>
     </div>
      <small class="creds">
       by <a href="https://www.twitter.com/thunderpounds">Thunderpounds</a>
@@ -33,7 +34,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .hello {
-  height: 100%;
+  height: 75%;
   display: flex;
   align-items: center;
   justify-content: center;

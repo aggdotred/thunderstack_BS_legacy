@@ -19,10 +19,11 @@
 <script>
 import Navbar from './Navbar'
 import WeightLogForm from './WeightLogForm'
+import WeightLogList from './WeightLogList'
 
 export default {
   name: 'dashboard',
-  components: { Navbar, WeightLogForm },
+  components: { Navbar, WeightLogForm, WeightLogList },
   props: ['user'],
   data () {
     return {
