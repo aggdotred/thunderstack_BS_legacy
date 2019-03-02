@@ -11,15 +11,21 @@
         </div>
       </div>
     </form>
-    <ul class="list-group">
-      <li v-for="weightLog in weightLogs" class="list-group-item" :key="weightLog.id">
-        <label>
-          {{ weightLog.text }} lbs. ----
-          Date: {{ weightLog.date }}
-        </label>
-        <a @click.prevent="weightLogs.splice(weightLogs.indexOf(weightLog), 1)" class="delete pull-right" href="#">X</a>
-      </li>
-    </ul>
+    <div class="container-fluid">
+      <table class="table table-responsive-md table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Weight in Lbs.</th>
+            <th scope="col">Date</th>
+          </tr>
+          <tr v-for="weightLog in weightLogs">
+            <td>{{ weightLog.text }}</td>
+            <td>{{ weightLog.date }}</td>
+          </tr>
+        </thead>
+      </table>
+    
+    </div>
   </div>
 </template>
 
@@ -99,6 +105,13 @@ label {
   cursor: pointer;
   input[type="checkbox"] {
     margin-right: 5px;
+  }
+}
+
+table {
+  bgcolor: #00FF00;
+  thead {
+    border-bottom: 3px solid;
   }
 }
 
