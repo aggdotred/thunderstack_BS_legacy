@@ -12,7 +12,7 @@
       </div>
     </form>
     <div class="container-fluid">
-      <table class="table table-responsive-md table-striped">
+      <table class="table table-responsive-md">
         <thead>
           <tr>
             <th scope="col">Weight in Lbs.</th>
@@ -109,10 +109,15 @@ label {
 }
 
 table {
-  bgcolor: #00FF00;
-  thead {
-    border-bottom: 3px solid;
-  }
+  margin-top: 5px;
+  color: black;
+  background-color: #DCDCDC;
+  border-top: 1px solid;
 }
+
+td, th {
+  border: 1px solid;
+}
+tr:nth-child(even) {background-color: #F5F5F5;}
 
 </style>
