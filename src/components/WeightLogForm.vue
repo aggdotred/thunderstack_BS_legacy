@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="Chart">    
+      <WeightLogChart v-if="loaded" :chartData="weightLogsInLbs" :chartLabels="dateLabels" :key="weightLogChartKey" />
+    </div>
     <form @submit.prevent="addWeightLog" :disabled="! weightLog">
       <div class="input-group">
         <div class="row">
@@ -12,29 +15,19 @@
       </div>
     </form>
     <div class="container-fluid">
-      <table class="table table-responsive-md">
-        <thead>
-          <tr>
-            <th scope="col">Weight in Lbs.</th>
-            <th scope="col">Date</th>
-          </tr>
-          <tr v-for="weightLog in weightLogs">
-            <td>{{ weightLog.text }}</td>
-            <td>{{ weightLog.date }}</td>
-          </tr>
-        </thead>
-      </table>
-    
+      <WeightLogList :weightLogs="weightLogs" :key="weightLogListKey"/>
     </div>
   </div>
 </template>
 
 <script>
-
+import WeightLogChart from './WeightLogChart'
+import WeightLogList from './WeightLogList'
 var STORAGE_FILE = 'weightLogs.json'
 
 export default {
   name: 'WeightLogForm',
+  components: { WeightLogChart, WeightLogList },
   props: ['user'],
   data: () => {
     return {
@@ -42,8 +35,13 @@ export default {
       weightLogs: [],
       weightLog: {},
       weightLogInLbs: '',
+      weightLogsInLbs: [],
       weightLogDate: '',
-      uidCount: 0
+      dateLabels: [],
+      uidCount: 0,
+      loaded: false,
+      weightLogChartKey: 0,
+      weightLogListKey: 0
     }
   },
   mounted () {
@@ -61,6 +59,10 @@ export default {
     }
   },
   methods: {
+    forceRerender () {
+      this.weightLogChartKey += 1
+      this.weightLogListKey += 1
+    },
     addWeightLog () {
       const weightLogInLbsIsValid = typeof parseFloat(this.weightLogInLbs.trim()) === 'number'
       const weightLogDateIsValid = !!this.weightLogInLbs.trim()
@@ -77,6 +79,7 @@ export default {
       this.weightLog = {}
       this.weightLogInLbs = ''
       this.weightLogDate = ''
+      this.forceRerender()
     },
     fetchData () {
       const blockstack = this.blockstack
@@ -88,7 +91,14 @@ export default {
             weightLog.id = index
           })
           this.uidCount = weightLogs.length
-          this.weightLogs = weightLogs
+          this.weightLogs = weightLogs.sort(function (a, b) {
+              // Turn your strings into dates, and then subtract them
+              // to get a value that is either negative, positive, or zero.
+            return new Date(a.date) - new Date(b.date)
+          })
+          this.dateLabels = weightLogs.map(weightLog => weightLog.date)
+          this.weightLogsInLbs = weightLogs.map(weightLog => weightLog.text)
+          this.loaded = true
         })
     }
   }
@@ -98,7 +108,7 @@ export default {
 input::placeholder {
   color: grey;
 }
-  
+
 label {
   margin-bottom: 0;
   // width: 100%;
@@ -107,17 +117,4 @@ label {
     margin-right: 5px;
   }
 }
-
-table {
-  margin-top: 5px;
-  color: black;
-  background-color: #DCDCDC;
-  border-top: 1px solid;
-}
-
-td, th {
-  border: 1px solid;
-}
-tr:nth-child(even) {background-color: #F5F5F5;}
-
 </style>
