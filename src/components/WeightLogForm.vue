@@ -67,7 +67,6 @@ export default {
       const weightLogInLbsIsValid = typeof parseFloat(this.weightLogInLbs.trim()) === 'number'
       const weightLogDateIsValid = !!this.weightLogInLbs.trim()
       if (!weightLogInLbsIsValid || !weightLogDateIsValid) {
-        console.log('form input is invalid')
         return
       }
       this.weightLogs.unshift({
@@ -110,11 +109,7 @@ input::placeholder {
 }
 
 label {
-  margin-bottom: 0;
-  // width: 100%;
+  width: 100%;
   cursor: pointer;
-  input[type="checkbox"] {
-    margin-right: 5px;
-  }
 }
 </style>
